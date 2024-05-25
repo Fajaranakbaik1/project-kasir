@@ -3,42 +3,43 @@ session_start();
 
 // Inisialisasi array barang jika belum ada
 if (!isset($_SESSION['barang'])) {
-    $_SESSION['barang'] = [];
+  $_SESSION['barang'] = [];
 }
 
 // Tambah barang ke sesi
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tambah'])) {
-    $namaBarang = $_POST['nama_barang'];
-    $harga = $_POST['harga'];
-    $jumlah = $_POST['jumlah'];
+  $namaBarang = $_POST['nama_barang'];
+  $harga = $_POST['harga'];
+  $jumlah = $_POST['jumlah'];
 
-    // Validasi input
-    if ($namaBarang != "" && $harga != "" && $jumlah != "") {
-        $total = $harga * $jumlah;
-        $item = [
-            'nama_barang' => $namaBarang,
-            'harga' => $harga,
-            'jumlah' => $jumlah,
-            'total' => $total,
-        ];
+  // Validasi input
+  if ($namaBarang != "" && $harga != "" && $jumlah != "") {
+    $total = $harga * $jumlah;
+    $item = [
+      'nama_barang' => $namaBarang,
+      'harga' => $harga,
+      'jumlah' => $jumlah,
+      'total' => $total,
+    ];
 
-        $_SESSION['barang'][] = $item;
-    }
+    $_SESSION['barang'][] = $item;
+  }
 }
 
 // Hapus barang dari sesi
 if (isset($_GET['hapus'])) {
-    $index = $_GET['hapus'];
-    unset($_SESSION['barang'][$index]);
-    // Reset array keys
-    $_SESSION['barang'] = array_values($_SESSION['barang']);
-    
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
+  $index = $_GET['hapus'];
+  unset($_SESSION['barang'][$index]);
+  // Reset array keys
+  $_SESSION['barang'] = array_values($_SESSION['barang']);
+
+  header('Location: ' . $_SERVER['PHP_SELF']);
+  exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,16 +50,20 @@ if (isset($_GET['hapus'])) {
       .table-responsive {
         overflow-x: auto;
       }
+
       .container {
         max-width: 100%;
         padding: 15px;
       }
+
       .form-group {
         margin-bottom: 10px;
       }
+
       .table {
         font-size: 14px;
       }
+
       .table th,
       .table td {
         padding: 8px;
@@ -66,6 +71,7 @@ if (isset($_GET['hapus'])) {
     }
   </style>
 </head>
+
 <body>
   <div class="container mt-5">
     <h1 class="text-center">Masukan Data Barang</h1>
@@ -116,4 +122,10 @@ if (isset($_GET['hapus'])) {
               <?php endforeach; ?>
             <?php endif; ?>
           </tbody>
-        
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
